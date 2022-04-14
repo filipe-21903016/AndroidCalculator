@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">AndroidCalculator</string>
+    <string name="buttonDeleteString"><![CDATA[<]]></string>
+    <string name="buttonExclamationMarkString">!</string>
+    <string name="buttonQuestionMarkString">?</string>
+    <string name="button4String">4</string>
+    <string name="button5String">5</string>
+    <string name="button6String">6</string>
+    <string name="buttonNumberSignString">#</string>
+    <string name="button1String">1</string>
+    <string name="button2String">2</string>
+    <string name="button3String">3</string>
+    <string name="buttonAditionString">+</string>
+    <string name="button0String">0</string>
+    <string name="buttonFloatString">.</string>
+    <string name="buttonEqualsString">=</string>
+    <string name="buttonCString">C</string>
+    <string name="buttonDivisionString">/</string>
+    <string name="button9String">9</string>
+    <string name="button7String">7</string>
+    <string name="button8String">8</string>
+    <string name="buttonMultiplicationString">*</string>
+    <string name="buttonSubtractionString">-</string>
+    <string name="buttonDouble0String">00</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
