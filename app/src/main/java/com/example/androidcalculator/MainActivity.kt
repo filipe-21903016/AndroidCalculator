@@ -1,18 +1,11 @@
 package com.example.androidcalculator
 
-import android.app.Notification
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.MenuItem
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidcalculator.databinding.ActivityMainBinding
-import net.objecthunter.exp4j.ExpressionBuilder
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -43,10 +36,10 @@ class MainActivity : AppCompatActivity() {
             binding.drawer, binding.toolbar,
             R.string.drawer_open, R.string.drawer_close
         )
-        binding.navDrawer?.setNavigationItemSelectedListener {
+        binding.navDrawer.setNavigationItemSelectedListener {
             onClickNavigationItem(it)
         }
-        binding.drawer?.addDrawerListener(toggle)
+        binding.drawer.addDrawerListener(toggle)
         toggle.syncState()
     }
 
@@ -54,8 +47,20 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.nav_calculator -> NavigationManager.goToCalculatorFragment(supportFragmentManager)
         }
-        binding.drawer?.closeDrawer(GravityCompat.START)
+        binding.drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawer.isDrawerOpen(GravityCompat.START))
+        {
+            binding.drawer.closeDrawer(GravityCompat.START)
+        } else if (supportFragmentManager.backStackEntryCount == 1)
+        {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
     }
 
 

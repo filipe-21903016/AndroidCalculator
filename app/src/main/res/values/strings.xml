@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidCalculator</string>
+    <string name="app_name">Calculadora</string>
     <string name="buttonDeleteString"><![CDATA[<]]></string>
     <string name="buttonExclamationMarkString">!</string>
     <string name="buttonQuestionMarkString">?</string>

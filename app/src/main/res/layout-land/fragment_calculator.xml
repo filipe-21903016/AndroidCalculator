@@ -26,7 +26,7 @@
             android:id="@+id/rv_historic"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -47,7 +47,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button7String" />
 
@@ -56,7 +55,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button8String" />
 
@@ -65,7 +63,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button9String" />
 
@@ -74,10 +71,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/darker_gray"
                     android:text="@string/buttonCString" />
-
 
 
                 <Button
@@ -85,7 +80,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:text="@string/buttonDivisionString" />
             </LinearLayout>
@@ -102,7 +96,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button4String" />
 
@@ -111,7 +104,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button5String" />
 
@@ -120,10 +112,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button6String" />
-
 
 
                 <Button
@@ -131,7 +121,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/darker_gray"
                     android:text="@string/buttonDeleteString" />
 
@@ -140,7 +129,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:text="@string/buttonMultiplicationString" />
             </LinearLayout>
@@ -157,7 +145,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button1String" />
 
@@ -166,7 +153,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button2String" />
 
@@ -175,7 +161,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button3String" />
 
@@ -184,7 +169,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:text="@string/buttonNumberSignString" />
 
@@ -193,7 +177,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:text="@string/buttonSubtractionString" />
             </LinearLayout>
@@ -210,7 +193,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/button0String" />
 
@@ -219,7 +201,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/buttonDouble0String" />
 
@@ -228,7 +209,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="#404040"
                     android:text="@string/buttonFloatString" />
 
@@ -237,7 +217,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:text="@string/buttonEqualsString" />
 
@@ -246,7 +225,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="2dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:text="@string/buttonAditionString" />
             </LinearLayout>
