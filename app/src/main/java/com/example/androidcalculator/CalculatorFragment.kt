@@ -16,8 +16,6 @@ import net.objecthunter.exp4j.ExpressionBuilder
 class CalculatorFragment : Fragment() {
     private lateinit var binding: FragmentCalculatorBinding
     private val TAG = MainActivity::class.java.simpleName
-    private val operations = mutableListOf<OperationUi>()
-    private val adapter = HistoryAdapter(::onOperationClick)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,11 +69,7 @@ class CalculatorFragment : Fragment() {
             Log.i(TAG, "Click no botão +")
             binding.textVisor.text = ""
         }
-
-        binding.rvHistoric?.layoutManager = LinearLayoutManager(activity as Context)
-        binding.rvHistoric?.adapter = adapter
     }
-
 
     fun onClickSymbol(symbol: String) {
         Log.i(TAG, "Click no botão $symbol")
@@ -99,13 +93,10 @@ class CalculatorFragment : Fragment() {
         ).build()
         val result = expressionBuilder.evaluate().toString()
         binding.textVisor.text = result
-        operations.add(
-            OperationUi(
-                expression = expression,
-                result = result
-            )
-        )
-        adapter.updateItems(operations)
+        (activity as MainActivity).addOperation(OperationUi(
+            expression = expression,
+            result = result
+        ))
         Log.i(TAG, "O resultado é $result")
     }
 

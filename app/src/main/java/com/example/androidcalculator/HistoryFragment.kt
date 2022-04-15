@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidcalculator.databinding.FragmentCalculatorBinding
 import com.example.androidcalculator.databinding.FragmentHistoryBinding
 
-private const val ARG_OPERATIONS = "operations"
+private const val ARG_OPERATIONS = "param1"
 
 class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
@@ -39,7 +39,7 @@ class HistoryFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.rvHistoric.layoutManager = LinearLayoutManager(activity as Context)
-        binding.rvHistoric.adapter = HistoryAdapter({})
+        binding.rvHistoric.adapter = HistoryAdapter({}, (activity as MainActivity).getOperations())
     }
 
     @SuppressLint("SourceLockedOrientationActivity")

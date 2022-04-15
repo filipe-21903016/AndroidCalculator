@@ -9,6 +9,7 @@ import com.example.androidcalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val operations = mutableListOf<OperationUi>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         if (!screenRotated(savedInstanceState)) {
             NavigationManager.goToCalculatorFragment(supportFragmentManager)
         }
-
     }
 
     private fun screenRotated(savedInstanceState: Bundle?): Boolean {
@@ -63,6 +63,12 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+    fun addOperation(operation:OperationUi) {
+        operations.add(operation)
+    }
+
+    fun getOperations() = operations
 
 
 }
