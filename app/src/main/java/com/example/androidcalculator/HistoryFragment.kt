@@ -53,7 +53,6 @@ class HistoryFragment : Fragment() {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 
-
     companion object {
         @JvmStatic
         fun newInstance(operations : ArrayList<OperationUi>) : HistoryFragment{

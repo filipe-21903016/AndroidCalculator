@@ -18,4 +18,6 @@ object NavigationManager {
     fun goToHistoryFragment(fm : FragmentManager){
         placeFragment(fm , HistoryFragment())
     }
+
+
 }

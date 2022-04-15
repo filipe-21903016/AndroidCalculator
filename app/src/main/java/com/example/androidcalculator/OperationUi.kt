@@ -20,6 +20,7 @@ class OperationUi(
         return "$expression=$result))"
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun getOperationDatetime(): String {
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy - HH:mm:ss")
         return simpleDateFormat.format(timestamp)
