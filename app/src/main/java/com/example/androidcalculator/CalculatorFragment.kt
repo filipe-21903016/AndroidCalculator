@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidcalculator.databinding.ActivityMainBinding
 import com.example.androidcalculator.databinding.FragmentCalculatorBinding
@@ -21,6 +22,7 @@ class CalculatorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.calculator)
         val view = inflater.inflate(
             R.layout.fragment_calculator, container, false
         )
@@ -98,9 +100,5 @@ class CalculatorFragment : Fragment() {
             result = result
         ))
         Log.i(TAG, "O resultado é $result")
-    }
-
-    private fun onOperationClick(message: String) {
-        Toast.makeText(activity as Context, message, Toast.LENGTH_LONG).show()
     }
 }

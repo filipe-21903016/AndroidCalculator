@@ -23,6 +23,7 @@
     <string name="buttonSubtractionString">-</string>
     <string name="buttonDouble0String">00</string>
     <string name="calculator">Calculadora</string>
+    <string name="operationDetails">Detalhes</string>
     <string name="history">Histórico</string>
     <string name="drawer_open">Aberto</string>
     <string name="drawer_close">Fechado</string>

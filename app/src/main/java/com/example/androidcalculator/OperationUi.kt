@@ -14,7 +14,7 @@ import kotlin.math.round
 class OperationUi(
     val expression: String,
     val result: String,
-    val timestamp: Long = System.currentTimeMillis()
+    private val timestamp: Long = System.currentTimeMillis()
 ) : Parcelable {
     override fun toString(): String {
         return "$expression=$result))"

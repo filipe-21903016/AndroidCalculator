@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidcalculator.databinding.FragmentCalculatorBinding
 import com.example.androidcalculator.databinding.FragmentHistoryBinding
@@ -30,6 +32,7 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.history)
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_history, container, false)
         binding = FragmentHistoryBinding.bind(view)
@@ -39,7 +42,7 @@ class HistoryFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.rvHistoric.layoutManager = LinearLayoutManager(activity as Context)
-        binding.rvHistoric.adapter = HistoryAdapter({}, (activity as MainActivity).getOperations())
+        binding.rvHistoric.adapter = HistoryAdapter(parentFragmentManager,(activity as MainActivity).getOperations())
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
