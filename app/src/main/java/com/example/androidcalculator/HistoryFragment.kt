@@ -12,7 +12,6 @@ import android.view.ViewGroup
 private const val ARG_OPERATIONS = "operations"
 
 class HistoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var operations: ArrayList<OperationUi>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
