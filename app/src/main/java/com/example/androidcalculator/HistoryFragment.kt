@@ -3,28 +3,31 @@ package com.example.androidcalculator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ActivityInfo
-import android.media.VolumeShaper
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidcalculator.databinding.FragmentCalculatorBinding
 import com.example.androidcalculator.databinding.FragmentHistoryBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val ARG_OPERATIONS = "param1"
 
 class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
-    private var operations: ArrayList<OperationUi>? = null
+    private lateinit var viewModel: CalculatorViewModel
+    private var history: List<OperationUi>? = null
+    private val adapter = history?.let { HistoryAdapter(parentFragmentManager, it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            operations = it.getParcelableArrayList(ARG_OPERATIONS)
+            history = it.getParcelableArrayList(ARG_OPERATIONS)
         }
     }
 
@@ -35,6 +38,7 @@ class HistoryFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.history)
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_history, container, false)
+        viewModel = ViewModelProvider(this).get(CalculatorViewModel::class.java)
         binding = FragmentHistoryBinding.bind(view)
         return binding.root
     }
@@ -42,7 +46,8 @@ class HistoryFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.rvHistoric.layoutManager = LinearLayoutManager(activity as Context)
-        binding.rvHistoric.adapter = HistoryAdapter(parentFragmentManager,(activity as MainActivity).getOperations())
+        viewModel.getHistory { history }
+        binding.rvHistoric.adapter = adapter
     }
 
     @SuppressLint("SourceLockedOrientationActivity")

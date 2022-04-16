@@ -11,18 +11,12 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.round
 
 @Parcelize
-class OperationUi(
+data class OperationUi(
     val expression: String,
-    val result: String,
-    private val timestamp: Long = System.currentTimeMillis()
+    val result: Double,
+    val timestamp: Long
 ) : Parcelable {
     override fun toString(): String {
         return "$expression=$result))"
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    fun getOperationDatetime(): String {
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy - HH:mm:ss")
-        return simpleDateFormat.format(timestamp)
     }
 }

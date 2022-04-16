@@ -41,7 +41,7 @@ class OperationDetailFragment : Fragment() {
         super.onStart()
         binding.textExpression.text = operationUi?.expression
         binding.textResult.text = "=${operationUi?.result}"
-        binding.textDatetime.text = operationUi?.getOperationDatetime()
+        //binding.textDatetime.text = operationUi?.getOperationDatetime()
     }
 
     @SuppressLint("SourceLockedOrientationActivity")

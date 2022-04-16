@@ -30,11 +30,10 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            //(onOperationClick(items[position].toString()))
             NavigationManager.goToOperationDetail(supportFragmentManager,items[position])
         }
         holder.binding.textExpression.text = items[position].expression
-        holder.binding.textResult.text = items[position].result
+        holder.binding.textResult.text = items[position].result.toString()
     }
 
     override fun getItemCount() = items.size
