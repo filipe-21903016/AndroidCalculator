@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,7 @@ class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
     private lateinit var viewModel: CalculatorViewModel
     private var history: List<OperationUi>? = null
-    private lateinit var adapter: HistoryAdapter
+    private var adapter: HistoryAdapter = HistoryAdapter(::onOperationClick, ::onOperationLongClick)
     private val TAG = MainActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,10 +48,9 @@ class HistoryFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        adapter = HistoryAdapter(parentFragmentManager)
         binding.rvHistoric.layoutManager = LinearLayoutManager(activity as Context)
         binding.rvHistoric.adapter = adapter
-        viewModel.getHistory { updateHistory(it) }
+        viewModel.onGetHistory { updateHistory(it) }
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -86,7 +86,8 @@ class HistoryFragment : Fragment() {
 
     private fun onOperationLongClick(operation: OperationUi): Boolean {
         Toast.makeText(context, getString(R.string.deleting), Toast.LENGTH_SHORT).show()
-        viewModel.deleteOperation(operation.uuid) { viewModel.getHistory { updateHistory(it) } }
+        viewModel.deleteOperation(operation.uuid) { viewModel.onGetHistory {updateHistory(it) }}
         return false
     }
+
 }
