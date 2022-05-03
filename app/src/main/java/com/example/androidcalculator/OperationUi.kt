@@ -12,6 +12,7 @@ import kotlin.math.round
 
 @Parcelize
 data class OperationUi(
+    val uuid: String,
     val expression: String,
     val result: Double,
     val timestamp: Long

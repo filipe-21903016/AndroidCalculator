@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,8 @@ class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
     private lateinit var viewModel: CalculatorViewModel
     private var history: List<OperationUi>? = null
-    private val adapter = history?.let { HistoryAdapter(parentFragmentManager, it) }
+    private lateinit var adapter: HistoryAdapter
+    private val TAG = MainActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +47,10 @@ class HistoryFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        adapter = HistoryAdapter(parentFragmentManager)
         binding.rvHistoric.layoutManager = LinearLayoutManager(activity as Context)
-        viewModel.getHistory { history }
         binding.rvHistoric.adapter = adapter
+        viewModel.getHistory { updateHistory(it) }
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -61,14 +64,29 @@ class HistoryFragment : Fragment() {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(operations : ArrayList<OperationUi>) : HistoryFragment{
-            return HistoryFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelableArrayList(ARG_OPERATIONS, operations)
-                }
-            }
+    private fun updateHistory(operations: List<OperationUi>) {
+        val history = operations
+        CoroutineScope(Dispatchers.Main).launch {
+            showHistory(history.isNotEmpty())
+            adapter.updateItems(history)
         }
+    }
+
+    private fun showHistory(show: Boolean) {
+        if (show) {
+            binding.rvHistoric.visibility = View.VISIBLE
+        } else {
+            binding.rvHistoric.visibility = View.GONE
+        }
+    }
+
+    private fun onOperationClick(operation: OperationUi) {
+        NavigationManager.goToOperationDetail(parentFragmentManager, operation)
+    }
+
+    private fun onOperationLongClick(operation: OperationUi): Boolean {
+        Toast.makeText(context, getString(R.string.deleting), Toast.LENGTH_SHORT).show()
+        viewModel.deleteOperation(operation.uuid) { viewModel.getHistory { updateHistory(it) } }
+        return false
     }
 }

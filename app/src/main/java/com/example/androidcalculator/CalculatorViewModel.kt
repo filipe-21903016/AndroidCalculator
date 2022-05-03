@@ -7,37 +7,42 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CalculatorViewModel : ViewModel() {
-    private val model = CalculatorModel()
+    private val model = CalculatorModel
     private val TAG = MainActivity::class.java.simpleName
 
     fun getDisplayValue() = model.display
 
     fun onClickSymbol(symbol: String): String {
-        Log.i(TAG,"Click \'$symbol\'")
+        Log.i(TAG, "Click \'$symbol\'")
         return model.insertSymbol(symbol)
     }
 
     fun onClickEquals(): String {
-        Log.i(TAG,"Click \'=\'")
+        Log.i(TAG, "Click \'=\'")
         val result = model.performOperation()
         return result.toString()
     }
 
     fun getHistory(callback: (List<OperationUi>) -> Unit) {
-        Log.i(TAG,"CalculatorViewModel get history")
+        Log.i(TAG, "CalculatorViewModel get history")
         model.getAllOperations { operations ->
             val history =
                 operations.map {
-                    OperationUi(it.expression, it.result, it.timestamp)
+                    OperationUi(it.uuid, it.expression, it.result, it.timestamp)
                 }
             CoroutineScope(Dispatchers.Main).launch {
                 callback(history)
+                Log.wtf(TAG, history.toString())
             }
         }
     }
 
     fun onClickClear(): String {
-        Log.i(TAG,"Click \'C\'")
+        Log.i(TAG, "Click \'C\'")
         return model.clearDisplay()
+    }
+
+    fun deleteOperation(uuid: String, onSuccess: () -> Unit) {
+        model.deleteOperation(uuid, onSuccess)
     }
 }
