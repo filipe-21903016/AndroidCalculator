@@ -14,9 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidcalculator.databinding.FragmentHistoryBinding
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.sql.Timestamp
 
 private const val ARG_OPERATIONS = "param1"
 
@@ -38,9 +42,10 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.history)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            getString(R.string.history)
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_history, container, false)
+        val view = inflater.inflate(R.layout.fragment_history, container, false)
         viewModel = ViewModelProvider(this).get(CalculatorViewModel::class.java)
         binding = FragmentHistoryBinding.bind(view)
         return binding.root
@@ -86,7 +91,7 @@ class HistoryFragment : Fragment() {
 
     private fun onOperationLongClick(operation: OperationUi): Boolean {
         Toast.makeText(context, getString(R.string.deleting), Toast.LENGTH_SHORT).show()
-        viewModel.deleteOperation(operation.uuid) { viewModel.onGetHistory {updateHistory(it) }}
+        viewModel.deleteOperation(operation.uuid) { viewModel.onGetHistory { updateHistory(it) } }
         return false
     }
 
