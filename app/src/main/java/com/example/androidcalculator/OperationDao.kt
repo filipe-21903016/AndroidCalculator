@@ -9,6 +9,9 @@ interface OperationDao {
     @Insert
     suspend fun insert(operation: OperationRoom)
 
+    @Insert
+    suspend fun insertAll(operations: List<OperationRoom>)
+
     @Query("SELECT * FROM operation ORDER BY timestamp ASC")
     suspend fun getAll() : List<OperationRoom>
 
@@ -16,5 +19,11 @@ interface OperationDao {
     suspend fun getById(uuid: String) : OperationRoom
 
     @Query("DELETE FROM operation WHERE uuid = :uuid")
-    suspend fun deleteById(uuid: String)
+    suspend fun delete(uuid: String) : Int
+
+    @Query("SELECT * FROM operation ORDER BY timestamp DESC LIMIT 1")
+    suspend fun getLastOperation(): OperationRoom
+
+    @Query("DELETE FROM operation")
+    suspend fun deleteAll() : Int
 }

@@ -29,7 +29,6 @@ class HistoryFragment : Fragment() {
     private lateinit var viewModel: CalculatorViewModel
     private var history: List<OperationUi>? = null
     private var adapter: HistoryAdapter = HistoryAdapter(::onOperationClick, ::onOperationLongClick)
-    private val TAG = MainActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +90,7 @@ class HistoryFragment : Fragment() {
 
     private fun onOperationLongClick(operation: OperationUi): Boolean {
         Toast.makeText(context, getString(R.string.deleting), Toast.LENGTH_SHORT).show()
-        viewModel.deleteOperation(operation.uuid) { viewModel.onGetHistory { updateHistory(it) } }
+        viewModel.onDeleteOperation(operation.uuid) { viewModel.onGetHistory { updateHistory(it) } }
         return false
     }
 

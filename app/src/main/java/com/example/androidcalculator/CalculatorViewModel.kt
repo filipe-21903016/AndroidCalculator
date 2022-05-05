@@ -3,9 +3,7 @@ package com.example.androidcalculator
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,12 +11,11 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 
 class CalculatorViewModel(application: Application) : AndroidViewModel(application) {
-    private val model = CalculatorModel(
-        CalculatorDatabase.getInstance(application).operationDao()
-    )
+    //private val model = CalculatorRoom(CalculatorDatabase.getInstance(application).operationDao())
+    private val model = CalculatorRetrofit(RetrofitBuilder.getInstance("https://cm-calculadora.herokuapp.com/api/"))
     private val TAG = MainActivity::class.java.simpleName
 
-    fun getDisplayValue() = model.display
+    fun getDisplayValue() = model.expression
 
     fun onClickSymbol(symbol: String): String {
         Log.i(TAG, "Click \'$symbol\'")
@@ -37,14 +34,16 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
         return model.clearDisplay()
     }
 
-    fun onGetHistory(onFinished: (List<OperationUi>) -> Unit) {
-        //model.getAllOperations(onFinished)
-        getAllOperationsWs(onFinished)
+    fun onDeleteOperation(uuid: String, onSuccess: () -> Unit) {
+        model.deleteOperation(uuid, onSuccess)
     }
 
+    fun onClickGetLastOperation(onFinished: (String) -> Unit){
+        model.getLastOperation(onFinished)
+    }
 
-    fun deleteOperation(uuid: String, onSuccess: () -> Unit) {
-        model.deleteOperation(uuid, onSuccess)
+    fun onGetHistory(onFinished: (List<OperationUi>) -> Unit){
+        model.getHistory(onFinished)
     }
 
     private fun getAllOperationsWs(callback: (List<OperationUi>) -> Unit) {
