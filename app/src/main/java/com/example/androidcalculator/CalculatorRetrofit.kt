@@ -44,11 +44,17 @@ class CalculatorRetrofit(retrofit: Retrofit) : CalculatorModel() {
     }
 
     override fun deleteOperation(uuid: String, onSuccess: () -> Unit) {
-        throw Exception("Not implemented on web service")
+        CoroutineScope(Dispatchers.IO).launch {
+            service.deleteById(uuid)
+            onSuccess()
+        }
     }
 
     override fun deleteAllOperations(onFinished: () -> Unit) {
-        throw Exception("Not implemented on web service")
+        CoroutineScope(Dispatchers.IO).launch {
+            service.deleteAll()
+            onFinished()
+        }
     }
 
     override fun getHistory(onFinished: (List<OperationUi>) -> Unit) {

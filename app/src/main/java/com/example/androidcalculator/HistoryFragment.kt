@@ -78,9 +78,11 @@ class HistoryFragment : Fragment() {
 
     private fun showHistory(show: Boolean) {
         if (show) {
+            binding.tvErrorMessage.visibility = View.GONE
             binding.rvHistoric.visibility = View.VISIBLE
         } else {
             binding.rvHistoric.visibility = View.GONE
+            binding.tvErrorMessage.visibility = View.VISIBLE
         }
     }
 
@@ -90,7 +92,9 @@ class HistoryFragment : Fragment() {
 
     private fun onOperationLongClick(operation: OperationUi): Boolean {
         Toast.makeText(context, getString(R.string.deleting), Toast.LENGTH_SHORT).show()
-        viewModel.onDeleteOperation(operation.uuid) { viewModel.onGetHistory { updateHistory(it) } }
+        viewModel.onDeleteOperation(operation.uuid) {
+                viewModel.onGetHistory { updateHistory(it) }
+        }
         return false
     }
 

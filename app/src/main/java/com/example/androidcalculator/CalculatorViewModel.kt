@@ -3,19 +3,20 @@ package com.example.androidcalculator
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.lang.Exception
 
-class CalculatorViewModel(application: Application) : AndroidViewModel(application) {
-    //private val model = CalculatorRoom(CalculatorDatabase.getInstance(application).operationDao())
-    private val model = CalculatorRetrofit(RetrofitBuilder.getInstance("https://cm-calculadora.herokuapp.com/api/"))
+class CalculatorViewModel : ViewModel() {
+    private val model = CalculatorRepository.getInstance()
     private val TAG = MainActivity::class.java.simpleName
 
-    fun getDisplayValue() = model.expression
+    fun getDisplayValue() = model.getExpression()
 
     fun onClickSymbol(symbol: String): String {
         Log.i(TAG, "Click \'$symbol\'")
@@ -31,7 +32,7 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
 
     fun onClickClear(): String {
         Log.i(TAG, "Click \'C\'")
-        return model.clearDisplay()
+        return model.clear()
     }
 
     fun onDeleteOperation(uuid: String, onSuccess: () -> Unit) {
@@ -44,37 +45,5 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
 
     fun onGetHistory(onFinished: (List<OperationUi>) -> Unit){
         model.getHistory(onFinished)
-    }
-
-    private fun getAllOperationsWs(callback: (List<OperationUi>) -> Unit) {
-        data class GetAllOperationsResponse(
-            val uuid: String,
-            val expression: String,
-            val result: Double,
-            val timestamp: Long
-        )
-        CoroutineScope(Dispatchers.IO).launch {
-            val request: Request = Request.Builder()
-                .url("https://cm-calculadora.herokuapp.com/api/operations")
-                .addHeader(
-                    "apiKey",
-                    "8270435acfead39ccb03e8aafbf37c49359dfbbcac4ef4769ae82c9531da0e17"
-                )
-                .build()
-            val response = OkHttpClient().newCall(request).execute().body
-            if (response != null) {
-                val responseObj =
-                    Gson().fromJson(response.string(), Array<GetAllOperationsResponse>::class.java)
-                        .toList()
-                callback(responseObj.map {
-                    OperationUi(
-                        uuid = it.uuid,
-                        expression = it.expression,
-                        result = it.result,
-                        timestamp = it.timestamp
-                    )
-                })
-            }
-        }
     }
 }

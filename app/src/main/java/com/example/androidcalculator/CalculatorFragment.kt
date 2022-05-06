@@ -130,10 +130,19 @@ class CalculatorFragment : Fragment() {
     }
 
     private fun onOperationLongClick(operation: OperationUi): Boolean {
-        /*
         Toast.makeText(context, getString(R.string.deleting), Toast.LENGTH_SHORT).show()
-        viewModel.onDeleteOperation(operation.uuid) { viewModel.onGetHistory { updateHistory(it) } }
-         */
+        viewModel.onDeleteOperation(operation.uuid) {
+            viewModel.onGetHistory {
+                updateHistory(it.map {
+                    OperationRoom(
+                        it.uuid,
+                        it.expression,
+                        it.result,
+                        it.timestamp
+                    )
+                })
+            }
+        }
         return false
     }
 

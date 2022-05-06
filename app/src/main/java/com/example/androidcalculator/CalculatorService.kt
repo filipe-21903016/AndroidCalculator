@@ -12,6 +12,7 @@ data class GetOperationsResponse(
     val timestamp: Long
 )
 data class DeleteOperationByIdResponse(val message: String)
+data class DeleteOperationAllResponse(val message: String)
 
 interface CalculatorService {
     @Headers("apiKey:8270435acfead39ccb03e8aafbf37c49359dfbbcac4ef4769ae82c9531da0e17")
@@ -25,5 +26,11 @@ interface CalculatorService {
     @Headers("apiKey:8270435acfead39ccb03e8aafbf37c49359dfbbcac4ef4769ae82c9531da0e17")
     @DELETE("operations/{uuid}")
     suspend fun deleteById(@Path("uuid") uuid: String) : DeleteOperationByIdResponse
+
+
+    @Headers("apiKey:8270435acfead39ccb03e8aafbf37c49359dfbbcac4ef4769ae82c9531da0e17")
+    @DELETE("operations")
+    suspend fun deleteAll() : DeleteOperationAllResponse
+
 
 }

@@ -6,7 +6,6 @@ import java.util.*
 
 abstract class CalculatorModel {
     var expression: String = "0"
-        private set
     private val TAG = MainActivity::class.java.simpleName
 
     fun clearDisplay(): String {
@@ -24,16 +23,6 @@ abstract class CalculatorModel {
         val expressionBuilder = ExpressionBuilder(expression).build()
         val result = expressionBuilder.evaluate()
         Log.i(TAG, "CalculatorModel performs operation -> $expression=$result")
-        /*
-        val operation = OperationRoom(
-            expression =  display, result = result, timestamp = Date().time
-        )
-        display = result.toString()
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.insert(operation)
-            onFinished()
-        }
-        */
         expression = result.toString()
         onFinished()
     }
@@ -43,14 +32,4 @@ abstract class CalculatorModel {
     abstract fun deleteOperation(uuid: String, onSuccess: () -> Unit)
     abstract fun deleteAllOperations(onFinished: () -> Unit)
     abstract fun getHistory(onFinished: (List<OperationUi>) -> Unit)
-
-    /*
-    fun getAllOperations(onFinished: (List<OperationUi>) -> Unit) {
-        Log.i(TAG, "CalculatorModel getting all operations")
-        CoroutineScope(Dispatchers.IO).launch {
-            val operations = dao.getAll()
-            onFinished(operations.map { OperationUi(it.uuid, it.expression, it.result, it.timestamp) })
-        }
-    }
-     */
 }

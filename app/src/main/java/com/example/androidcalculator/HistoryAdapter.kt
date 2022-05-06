@@ -31,12 +31,15 @@ class HistoryAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        holder.itemView.setOnClickListener { onClick(items[position]) }
+        holder.itemView.setOnClickListener {
+            if (items.size > position) onClick(items[position])
+        }
         holder.itemView.setOnLongClickListener { onLongClick(items[position]) }
 
         holder.binding.textExpression.text = items[position].expression
         holder.binding.textResult.text = items[position].result.toString()
         holder.binding.tvUuid.text = "UUID:${items[position].uuid}"
+
     }
 
     override fun getItemCount() = items.size
