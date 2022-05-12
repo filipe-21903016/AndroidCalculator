@@ -10,5 +10,6 @@ class CalculatorApplication : Application() {
             CalculatorRoom(CalculatorDatabase.getInstance(this).operationDao()),
             CalculatorRetrofit(RetrofitBuilder.getInstance("https://cm-calculadora.herokuapp.com/api/"))
         )
+        FusedLocation.start(this)
     }
 }
