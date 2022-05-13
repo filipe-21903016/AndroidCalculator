@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.androidcalculator.databinding.FragmentMapBinding
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import java.util.*
 
 class MapFragment : Fragment(), OnLocationChangedListener {
     private lateinit var binding: FragmentMapBinding
@@ -25,9 +25,10 @@ class MapFragment : Fragment(), OnLocationChangedListener {
     ): View {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
         binding = FragmentMapBinding.bind(view)
+        geocoder = Geocoder(context, Locale.getDefault())
         binding.map.onCreate(savedInstanceState)
-        binding.map.getMapAsync { map ->
-            this.map = map
+        binding.map.getMapAsync {
+            map = it
             FusedLocation.registerListener(this)
         }
         return binding.root
@@ -48,7 +49,6 @@ class MapFragment : Fragment(), OnLocationChangedListener {
             .target(LatLng(latitude, longitude))
             .zoom(12f)
             .build()
-
         map?.animateCamera(
             CameraUpdateFactory.newCameraPosition(cameraPosition)
         )

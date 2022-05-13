@@ -3,6 +3,7 @@ package com.example.androidcalculator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
+import android.util.Log
 import com.google.android.gms.location.*
 
 @SuppressLint("MissingPermission")
@@ -15,11 +16,16 @@ class FusedLocation private constructor(context: Context) : LocationCallback(){
 
     private  var locationRequest = LocationRequest.create().apply {
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        interval = TIME_BETWEEN_UPDATES
+        //interval = TIME_BETWEEN_UPDATES
+        smallestDisplacement = 10f
+    }
+
+    override fun onLocationResult(locationResult: LocationResult) {
+        Log.i(TAG, locationResult.lastLocation.toString())
+        notifyListeners(locationResult)
     }
 
     init {
-
         //instancia objecto que permite definir as configs
         val locationSettingsRequest = LocationSettingsRequest.Builder()
             .addLocationRequest(locationRequest)
@@ -37,6 +43,7 @@ class FusedLocation private constructor(context: Context) : LocationCallback(){
         private var instance: FusedLocation? = null
 
         fun registerListener(listener: OnLocationChangedListener){
+            Log.i(FusedLocation::class.java.simpleName, "Listener Registered")
             this.listener = listener
         }
 

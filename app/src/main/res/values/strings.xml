@@ -33,4 +33,5 @@
     <string name="registry_saved">Operation Saved</string>
     <string name="deleting_error">Error Removing</string>
     <string name="lista_vazia">Lista Vazia</string>
+    <string name="map">Mapa</string>
 </resources>
