@@ -12,12 +12,12 @@ class FusedLocation private constructor(context: Context) : LocationCallback(){
 
     private val TIME_BETWEEN_UPDATES = 20 * 1000L
 
+    @SuppressLint("VisibleForTests")
     private var client = FusedLocationProviderClient(context)
 
     private  var locationRequest = LocationRequest.create().apply {
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        //interval = TIME_BETWEEN_UPDATES
-        smallestDisplacement = 10f
+        interval = TIME_BETWEEN_UPDATES
     }
 
     override fun onLocationResult(locationResult: LocationResult) {

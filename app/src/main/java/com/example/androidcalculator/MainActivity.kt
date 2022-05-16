@@ -1,8 +1,6 @@
 package com.example.androidcalculator
 
 import android.Manifest
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -84,6 +82,4 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getOperations() = operations
-
-
 }
