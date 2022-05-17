@@ -7,7 +7,7 @@ import android.util.Log
 import com.google.android.gms.location.*
 
 @SuppressLint("MissingPermission")
-class FusedLocation private constructor(context: Context) : LocationCallback(){
+class FusedLocation private constructor(context: Context) : LocationCallback() {
     private val TAG = FusedLocation::class.java.simpleName
 
     private val TIME_BETWEEN_UPDATES = 20 * 1000L
@@ -15,7 +15,7 @@ class FusedLocation private constructor(context: Context) : LocationCallback(){
     @SuppressLint("VisibleForTests")
     private var client = FusedLocationProviderClient(context)
 
-    private  var locationRequest = LocationRequest.create().apply {
+    private var locationRequest = LocationRequest.create().apply {
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         interval = TIME_BETWEEN_UPDATES
     }
@@ -38,26 +38,26 @@ class FusedLocation private constructor(context: Context) : LocationCallback(){
         client.requestLocationUpdates(locationRequest, this, Looper.getMainLooper())
     }
 
-    companion object{
-        private var listener: OnLocationChangedListener? = null
+    companion object {
+        private var listeners: MutableList<OnLocationChangedListener> = mutableListOf()
         private var instance: FusedLocation? = null
 
-        fun registerListener(listener: OnLocationChangedListener){
+        fun registerListener(listener: OnLocationChangedListener) {
             Log.i(FusedLocation::class.java.simpleName, "Listener Registered")
-            this.listener = listener
+            listeners.add(listener)
         }
 
-        fun unregisterListener(){
-            listener = null
+        fun unregisterListener(listener: OnLocationChangedListener) {
+            listeners.remove(listener)
+            Log.i(FusedLocation::class.java.simpleName, "Listener Removed")
         }
 
-        fun notifyListeners(locationResult: LocationResult){
+        fun notifyListeners(locationResult: LocationResult) {
             val location = locationResult.lastLocation
-            listener?.onLocationChanged(location.latitude, location.longitude)
+            listeners.forEach { it.onLocationChanged(location.latitude, location.longitude) }
         }
 
-        fun start(context:Context)
-        {
+        fun start(context: Context) {
             instance = if (instance == null) FusedLocation(context) else instance
         }
     }

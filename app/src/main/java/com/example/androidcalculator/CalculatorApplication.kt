@@ -11,5 +11,7 @@ class CalculatorApplication : Application() {
             CalculatorRetrofit(RetrofitBuilder.getInstance("https://cm-calculadora.herokuapp.com/api/"))
         )
         FusedLocation.start(this)
+        Light.start(this)
+        Battery.start(this)
     }
 }
